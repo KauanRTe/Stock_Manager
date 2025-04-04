@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Categoria, Produto
 from django.http import HttpResponse
+from django.db.models import Sum, F, Case, When
+from movimentacao.models import Movimentacao
 
 # Create your views here.
 
@@ -8,10 +10,19 @@ def lista_produtos(request):
     produtos = Produto.objects.all()
     return render(request, 'estoque/lista_produtos.html', {'produtos': produtos})
 
-def home(request):
-    return HttpResponse("<h1>Bem-vindo ao Stock Manager!</h1>")
-
 def produtos_por_categoria(request, slug):
     categoria = get_object_or_404(Categoria, slug=slug)
     produtos = Produto.objects.filter(categoria=categoria)
     return render(request, 'estoque/produtos_por_categoria.html', {'categoria': categoria, 'produtos': produtos})
+
+def relatorio_estoque(request):
+    produtos = Produto.objects.annotate(
+        total_estoque = Sum(
+            Case(
+                When(movimentacoes__tipo = "entrada", then=F("movimentacoes__quantidade")),
+                When(movimentacoes__tipo = "saida", then=-F("movimentacoes__quantidade")),
+                default = 0
+            )
+        )
+    )
+    return render(request, 'estoque/relatorio_estoque.html', {"produtos": produtos})

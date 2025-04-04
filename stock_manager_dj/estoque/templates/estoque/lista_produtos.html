@@ -9,7 +9,7 @@
     <h1>📦 Lista de Produtos</h1>
     <ul>
         {% for produto in produtos %}
-            <li>{{ produto.nome }} - Quantidade: {{ produto.quantidade }}</li>
+            <li>{{ produto.nome }} - Descrição: {{ produto.descricao }}</li>
         {% empty %}
             <li>Nenhum produto cadastrado.</li>
         {% endfor %}

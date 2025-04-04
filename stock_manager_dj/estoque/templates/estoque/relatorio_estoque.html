@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Estoque</title>
+</head>
+<body>
+    <h1>📊 Relatório de Estoque</h1>
+<table border="1">
+    <tr>
+        <th>Produto</th>
+        <th>Quantidade Atual</th>
+    </tr>
+    {% for produto in produtos %}
+    <tr>
+        <td>{{ produto.nome }}</td>
+        <td>{{ produto.total_estoque|default:0 }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
