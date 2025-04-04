@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ categoria.nome }} - Produtos</title>
+</head>
+<body>
+    <h1>Produtos da categoria: {{ categoria.nome }}</h1>
+
+    {% if produtos %}
+        <ul>
+            {% for produto in produtos %}
+                <li>{{ produto.nome }} - R$ {{ produto.preco }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Não há produtos nesta categoria.</p>
+    {% endif %}
+
+    <a href="/">Voltar para a página inicial</a>
+</body>
+</html>
