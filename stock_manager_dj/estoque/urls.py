@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import lista_produtos, produtos_por_categoria
+from . import views
 
 app_name = "estoque"
 urlpatterns = [
-    path('produtos/', lista_produtos, name='lista_produtos'),
-    path('categoria/<slug:slug>/', produtos_por_categoria, name='produtos_por_categoria'),
+    path('categoria/<slug:slug>/', views.produtos_por_categoria, name='produtos_por_categoria'),
+    path('nova-categoria/', views.criar_categoria, name='criar_categoria'),
+    path('novo-produto/', views.criar_produto, name='criar_produto'),
 ]

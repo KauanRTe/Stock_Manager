@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="text-center">
-    <h1 class="mb-4">Bem-vindo ao Stock Manager 📦</h1>
+    <h1 class="mb-4">Bem-vindo ao Stock Manager, {{ request.user.username }} 📦</h1>
     <p class="lead">Gerencie seus produtos, movimentações e fornecedores com facilidade.</p>
 
     <hr class="my-4">
@@ -25,6 +25,22 @@
                 ⚙️ Administração
             </a>
         </div>
+        <div class="col-md-4">
+            <a href="{% url 'estoque:criar_categoria' %}" class="btn btn-outline-success w-100 mb-3">
+                ➕ Nova Categoria
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'estoque:criar_produto' %}" class="btn btn-outline-success w-100 mb-3">
+                ➕ Novo Produto
+            </a>
+        </div>
     </div>
 </div>
+{% if request.user.estoque %}
+<p>Você já tem um estoque criado: <strong>{{ request.user.estoque.nome }}</strong></p>
+{% else %}
+<p>Você ainda não tem um estoque.</p>
+<a href="{% url 'usuarios:registrar' %}">Registrar novo usuário</a>
+{% endif %}
 {% endblock %}
