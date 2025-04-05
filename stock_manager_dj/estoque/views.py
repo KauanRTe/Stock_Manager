@@ -15,14 +15,3 @@ def produtos_por_categoria(request, slug):
     produtos = Produto.objects.filter(categoria=categoria)
     return render(request, 'estoque/produtos_por_categoria.html', {'categoria': categoria, 'produtos': produtos})
 
-def relatorio_estoque(request):
-    produtos = Produto.objects.annotate(
-        total_estoque = Sum(
-            Case(
-                When(movimentacoes__tipo = "entrada", then=F("movimentacoes__quantidade")),
-                When(movimentacoes__tipo = "saida", then=-F("movimentacoes__quantidade")),
-                default = 0
-            )
-        )
-    )
-    return render(request, 'estoque/relatorio_estoque.html', {"produtos": produtos})

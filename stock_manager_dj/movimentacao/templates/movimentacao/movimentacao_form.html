@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Registrar Movimentação</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        <label for="id_tipo">Tipo de Movimentação:</label>
+        {{ form.tipo }}
+    </div>
+
+    <div>
+        <label for="id_produto">Produto:</label>
+        {{ form.produto }}
+    </div>
+
+    <div>
+        <label for="id_quantidade">Quantidade:</label>
+        {{ form.quantidade }}
+    </div>
+
+    <div id="fornecedor_field">
+        <label for="id_fornecedor">Fornecedor:</label>
+        {{ form.fornecedor }}
+    </div>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tipoField = document.getElementById("id_tipo");
+        const fornecedorRow = document.getElementById("fornecedor_field");
+    
+        function toggleFornecedor() {
+          if (tipoField.value === "entrada") {
+            fornecedorRow.style.display = "block";
+          } else {
+            fornecedorRow.style.display = "none";
+          }
+        }
+    
+        tipoField.addEventListener("change", toggleFornecedor);
+        toggleFornecedor();  // aplica no carregamento inicial
+      });
+</script>
+
+{% endblock %}

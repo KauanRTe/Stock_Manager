@@ -1,6 +1,6 @@
 from django.db import models
 from estoque.models import Produto
-
+from fornecedores.models import Fornecedor
 
 # Create your models here.
 class Movimentacao(models.Model):
@@ -13,6 +13,7 @@ class Movimentacao(models.Model):
     tipo = models.CharField(max_length=10, choices=TIPO_MOVIMENTACAO)
     quantidade = models.PositiveIntegerField()
     data = models.DateTimeField(auto_now_add=True)
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.tipo.capitalize()} - {self.produto.nome} ({self.quantidade})"
