@@ -16,4 +16,18 @@ def registrar_usuario(request):
         form = RegistroUsuarioForm()
     return render(request, 'usuarios/registro.html', {'form': form})
 
+def login_usuario(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home:home')
+        else:
+            erro = 'O usuário ou a senha estão inválidos.'
+            return render(request, 'usuarios/login.html', {'erro': erro})
+    return render(request, 'usuarios/login.html')
+
 

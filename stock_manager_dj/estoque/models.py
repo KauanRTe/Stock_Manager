@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Categoria(models.Model):
     nome = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(unique=True, blank=True)
+    estoque = models.ForeignKey('Estoque', on_delete=models.CASCADE, related_name='categorias')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -30,8 +31,8 @@ class Produto(models.Model):
         return f"{self.nome} ({self.categoria})"
     
 class Estoque(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='estoque')
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='estoques')
     nome = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Estoque de {self.usuario.username}"
+        return self.nome

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def relatorio_estoque(request):
-    estoque_usuario = request.user.estoque
+    estoque_usuario = request.session['estoque_id']
 
     produtos = Produto.objects.filter(estoque=estoque_usuario).annotate(
         total_estoque = Sum(

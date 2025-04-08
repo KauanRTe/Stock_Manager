@@ -4,12 +4,38 @@
 
 {% block content %}
 <div class="text-center">
-    <h1 class="mb-4">Bem-vindo ao Stock Manager, {{ request.user.username }} 📦</h1>
+    {% if user.is_authenticated %}
+    <p>Olá, {{ user.username }}!</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Selecionar Estoque</button>
+      </form>
+
+    {% if estoque_selecionado %}
+      <p>Estoque selecionado: {{ estoque_selecionado.nome }}</p>
+    {% else %}
+    <p>Nenhum estoque selecionado.</p>
+    {% endif %}
+
+    <form action="{% url 'usuarios:logout' %}" method='post'>
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% endif %}
+    <h1 class="mb-4">Bem-vindo ao Stock Manager 📦</h1>
     <p class="lead">Gerencie seus produtos, movimentações e fornecedores com facilidade.</p>
 
     <hr class="my-4">
 
+    {% if user.is_authenticated %}
     <div class="row mt-5">
+        <div class="col-md-4">
+            <a href="{% url 'estoque:criar_estoque' %}" class="btn btn-outline-success w-100 mb-3">
+                ➕ Novo Estoque
+            </a>
+        </div>
         <div class="col-md-4">
             <a href="{% url 'relatorios:relatorio_estoque' %}" class="btn btn-outline-primary w-100 mb-3">
                 📊 Relatório de Estoque
@@ -35,12 +61,28 @@
                 ➕ Novo Produto
             </a>
         </div>
+        <div class="col-md-4">
+            <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
+                ➕ Novo Fornecedor
+            </a>
+        </div>
     </div>
+    {%endif%}
 </div>
-{% if request.user.estoque %}
-<p>Você já tem um estoque criado: <strong>{{ request.user.estoque.nome }}</strong></p>
-{% else %}
-<p>Você ainda não tem um estoque.</p>
+
+{% if user.is_authenticated %}
+    <h3>Seus Estoques</h3>
+    <ul>
+    {% for estoque in estoques %}
+        <li>{{ estoque.nome }}</li>
+    {% empty %}
+        <li>Você ainda não tem estoques.</li>
+    {% endfor %}
+</ul>
+{%else%}
+<p> Você não está logado! </p>
 <a href="{% url 'usuarios:registrar' %}">Registrar novo usuário</a>
+<a href="{% url 'usuarios:login' %}">Login</a>
 {% endif %}
+
 {% endblock %}
