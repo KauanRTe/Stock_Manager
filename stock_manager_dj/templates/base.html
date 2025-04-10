@@ -1,49 +1,60 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Stock Manager{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
     <style>
         body {
             padding-top: 70px;
         }
     </style>
 </head>
-<body>
+<body class="h-full bg-gray-100 text-gray-900">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Stock Manager</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+<!-- Barra de navegação -->
+<nav class="bg-gray-800 text-white fixed w-full top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">Stock Manager</a>
+        <button class="lg:hidden text-white focus:outline-none" id="navbar-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'home:home' %}">Início</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'relatorios:relatorio_estoque' %}">Relatório</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'movimentacao:nova_movimentacao' %}">Movimentação</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
-            </ul>
+        <div class="hidden lg:flex space-x-4" id="navbar-links">
+            <a href="{% url 'home:home' %}" class="text-white hover:text-gray-300">Início</a>
+            <a href="{% url 'relatorios:relatorio_estoque' %}" class="text-white hover:text-gray-300">Relatório</a>
+            <a href="{% url 'movimentacao:nova_movimentacao' %}" class="text-white hover:text-gray-300">Movimentação</a>
+            <a href="{% url 'admin:index' %}" class="text-white hover:text-gray-300">Admin</a>
         </div>
     </div>
 </nav>
 
 <!-- Conteúdo principal -->
-<div class="container mt-4">
+<div class="container mx-auto mt-24 px-4">
     {% block content %}
     <!-- Conteúdo dinâmico -->
     {% endblock %}
 </div>
 
 <!-- Rodapé -->
-<footer class="text-center text-muted mt-5 mb-3">
-    <hr>
-    <p>&copy; {{ now|date:"Y" }} Stock Manager • Feito com Django 💻</p>
+<footer class="bg-gray-800 text-white py-4 mt-5">
+    <div class="max-w-7xl mx-auto text-center">
+        <hr class="border-gray-600">
+        <p class="text-sm mt-3">&copy; {{ now|date:"Y" }} Stock Manager • Feito com Django 💻</p>
+    </div>
 </footer>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Scripts para o menu hamburguer -->
+<script>
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbarLinks = document.getElementById('navbar-links');
+
+    navbarToggle.addEventListener('click', () => {
+        navbarLinks.classList.toggle('hidden');
+    });
+</script>
 
 </body>
 </html>

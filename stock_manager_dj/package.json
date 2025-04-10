@@ -1,0 +1,19 @@
+{
+  "name": "stock_manager_dj",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "postcss static/css/input.css -o static/css/output.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "10.4",
+    "postcss": "8.4",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "3.0"
+  }
+}
