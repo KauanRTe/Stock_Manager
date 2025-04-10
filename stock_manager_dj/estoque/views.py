@@ -67,5 +67,45 @@ def criar_estoque(request):
     return render(request, 'estoque/criar_estoque.html', {'form': form})
 
 
+def configurar_estoques(request):
+    return render(request, 'estoque/configurar_estoques.html')
+
+def renomear_estoque(request, estoque_id=None):
+    estoque_id = request.session.get('estoque_id')
+    if not estoque_id:
+        messages.error(request, 'Nenhum estoque selecionado.')
+        return redirect('estoque:configurar_estoques')
+    
+    estoque = get_object_or_404(Estoque, id=estoque_id, usuario=request.user)
+
+    if request.method == 'POST':
+        form = forms.EstoqueForm(request.POST, instance=estoque)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Estoque renomeado com Sucesso')
+            return redirect('home:home')
+    else:
+        form = forms.EstoqueForm(instance=estoque)
+    
+    return render(request, 'estoque/renomear_estoque.html', {'form': form})
+
+def deletar_estoque(request):
+    estoque_id = request.session.get('estoque_id')
+    if not estoque_id:
+        messages.error(request, 'Nenhum estoque selecionado')
+        return redirect('home:home')
+    
+    estoque = get_object_or_404(Estoque, id=estoque_id, usuario=request.user)
+
+    if request.method == 'POST':
+        estoque.delete()
+        request.session.pop('estoque_id', None)
+        messages.success(request, 'Estoque deletado com sucesso.')
+        return redirect('home:home')
+    
+    return render(request, 'estoque/deletar_estoque.html', {'estoque': estoque})
+    
+
+
             
 

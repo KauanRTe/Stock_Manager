@@ -3,15 +3,34 @@
 {% block title %}Início - Stock Manager{% endblock %}
 
 {% block content %}
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+        {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
 <div class="text-center">
     {% if user.is_authenticated %}
     <p>Olá, {{ user.username }}!</p>
 
-    <form method="post">
+    <form method="post" id="estoqueForm">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Selecionar Estoque</button>
+        {{ form.as_p|safe}}
       </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const select = document.querySelector('#id_estoque');
+            if (select){
+                select.addEventListener('change', function(){
+                    document.getElementById('estoqueForm').submit();
+                });
+            }
+        });
+    </script>
 
     {% if estoque_selecionado %}
       <p>Estoque selecionado: {{ estoque_selecionado.nome }}</p>
@@ -32,8 +51,8 @@
     {% if user.is_authenticated %}
     <div class="row mt-5">
         <div class="col-md-4">
-            <a href="{% url 'estoque:criar_estoque' %}" class="btn btn-outline-success w-100 mb-3">
-                ➕ Novo Estoque
+            <a href="{% url 'estoque:configurar_estoques' %}" class="btn btn-outline-success w-100 mb-3">
+                ➕ Configurar Estoques
             </a>
         </div>
         <div class="col-md-4">
