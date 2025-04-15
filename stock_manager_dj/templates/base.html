@@ -11,9 +11,10 @@
         }
     </style>
 </head>
-<body class="h-full bg-gray-100 text-gray-900">
+<body class="min-h-screen flex flex-col bg-white text-gray-800">
 
 <!-- Barra de navegação -->
+{%if user.is_authenticated%}
 <nav class="bg-gray-800 text-white fixed w-full top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <a href="/" class="text-2xl font-bold">Stock Manager</a>
@@ -23,16 +24,33 @@
             </svg>
         </button>
         <div class="hidden lg:flex space-x-4" id="navbar-links">
-            <a href="{% url 'home:home' %}" class="text-white hover:text-gray-300">Início</a>
-            <a href="{% url 'relatorios:relatorio_estoque' %}" class="text-white hover:text-gray-300">Relatório</a>
-            <a href="{% url 'movimentacao:nova_movimentacao' %}" class="text-white hover:text-gray-300">Movimentação</a>
-            <a href="{% url 'admin:index' %}" class="text-white hover:text-gray-300">Admin</a>
+            <a href="{% url 'home:home' %}" class="text-white font-bold text-2x1 hover:text-gray-300">Início</a>
+            <a href="{% url 'relatorios:relatorio_estoque' %}" class="text-white font-bold text-2x1 hover:text-gray-300">Relatório</a>
+            <a href="{% url 'movimentacao:nova_movimentacao' %}" class="text-white font-bold text-2x1 hover:text-gray-300">Movimentação</a>
+            {%if request.user.is_superuser %}
+            <a href="{% url 'admin:index' %}" class="text-white font-bold text-2x1 hover:text-gray-300">Admin</a>
+            {%endif%}
         </div>
     </div>
 </nav>
+{%else%}
+    <nav class="text-white bg-black fixed w-full top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">Stock Manager</a>
+            <button class="lg:hidden text-white focus:outline-none" id="navbar-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <div class="hidden lg:flex space-x-4" id="navbar-links">
+                <a href="{% url 'usuarios:login' %}" class="text-white font-bold text-2xl hover:text-gray-300">Entrar</a>
+            </div>
+        </div>
+    </nav>
+{%endif%}
 
 <!-- Conteúdo principal -->
-<div class="container mx-auto mt-24 px-4">
+<div class="container mx-auto mt-24 px-4 flex-grow">
     {% block content %}
     <!-- Conteúdo dinâmico -->
     {% endblock %}
@@ -42,7 +60,7 @@
 <footer class="bg-gray-800 text-white py-4 mt-5">
     <div class="max-w-7xl mx-auto text-center">
         <hr class="border-gray-600">
-        <p class="text-sm mt-3">&copy; {{ now|date:"Y" }} Stock Manager • Feito com Django 💻</p>
+        <p class="text-sm mt-3">&copy; {{ now|date:"Y" }} Stock Manager • Feito com Django</p>
     </div>
 </footer>
 
@@ -57,6 +75,4 @@
 </script>
 
 </body>
-
-<div class="hidden focus:outline-yellow-500"></div>
 </html>
