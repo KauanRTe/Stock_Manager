@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'fornecedores',
     'relatorios',
     'home',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

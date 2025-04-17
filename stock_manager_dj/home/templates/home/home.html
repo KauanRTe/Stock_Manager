@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block title %}Início - Stock Manager{% endblock %}
 
 {% block content %}
+<!-- Se houver alguma notificação de erro para o usuário -->
 {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -12,96 +14,94 @@
     {% endfor %}
   </ul>
 {% endif %}
-<div class="text-center">
-    {% if user.is_authenticated %}
-    <p>Olá, {{ user.username }}!</p>
 
-    <form method="post" id="estoqueForm">
-        {% csrf_token %}
-        {{ form.as_p|safe}}
-      </form>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            const select = document.querySelector('#id_estoque');
-            if (select){
-                select.addEventListener('change', function(){
-                    document.getElementById('estoqueForm').submit();
-                });
-            }
-        });
-    </script>
-
-    {% if estoque_selecionado %}
-      <p>Estoque selecionado: {{ estoque_selecionado.nome }}</p>
-    {% else %}
-    <p>Nenhum estoque selecionado.</p>
-    {% endif %}
-
-    <form action="{% url 'usuarios:logout' %}" method='post'>
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    {% endif %}
-    <h1 class="mb-4">Bem-vindo ao Stock Manager 📦</h1>
-    <p class="lead">Gerencie seus produtos, movimentações e fornecedores com facilidade.</p>
-
-    <hr class="my-4">
-
-    {% if user.is_authenticated %}
-    <div class="row mt-5">
-        <div class="col-md-4">
-            <a href="{% url 'estoque:configurar_estoques' %}" class="btn btn-outline-success w-100 mb-3">
-                ➕ Configurar Estoques
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a href="{% url 'relatorios:relatorio_estoque' %}" class="btn btn-outline-primary w-100 mb-3">
-                📊 Relatório de Estoque
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a href="{% url 'movimentacao:nova_movimentacao' %}" class="btn btn-outline-success w-100 mb-3">
-                ➕ Nova Movimentação
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a href="{% url 'admin:index' %}" class="btn btn-outline-dark w-100 mb-3">
-                ⚙️ Administração
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a href="{% url 'estoque:criar_categoria' %}" class="btn btn-outline-success w-100 mb-3">
-                ➕ Nova Categoria
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a href="{% url 'estoque:criar_produto' %}" class="btn btn-outline-success w-100 mb-3">
-                ➕ Novo Produto
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
-                ➕ Novo Fornecedor
-            </a>
-        </div>
-    </div>
-    {%endif%}
-</div>
-
+<!--Aparece somente se o usuário estiver logado-->
 {% if user.is_authenticated %}
-    <h3>Seus Estoques</h3>
-    <ul>
-    {% for estoque in estoques %}
-        <li>{{ estoque.nome }}</li>
-    {% empty %}
-        <li>Você ainda não tem estoques.</li>
-    {% endfor %}
-</ul>
-{%else%}
-<p> Você não está logado! </p>
-<a href="{% url 'usuarios:registrar' %}">Registrar novo usuário</a>
-<a href="{% url 'usuarios:login' %}">Login</a>
-{% endif %}
+    <div class="h-[calc(100%-2vh)] w-[calc(100%-2vw)] grid grid-rows-3 grid-flow-col gap-4 text-white text-sm font-bold"> <!--DIV PRINCIPAL-->
+        <div class="ml-10 block p-4 rounded-lg shadow-lg flex-col row-span-3"> <!-- Grid coluna 01-->
+            <p class='w-auto h-12 flex justify-center text-3xl flex-row font-semibold text-gray-700'>Bem-vindo de volta, {{ user.username }}!</p>
+            <div class='h-auto pb-2 w-auto flex justify-center'>
+            <form method="post" id="estoqueForm" class="justify-center w-auto">
+                {% csrf_token %}
+                <div class="flex flex-col">
+                <label for="{{ form.estoque.id_for_label }}" class="mb-1 text-2xl font-medium text-gray-700">
+                {{ form.estoque.label }}
+                </label>
+        
+                {{ form.estoque|add_class:"h-8 border border-gray-300 text-gray-600 text-sm rounded-lg block w-60 py-0 px-3 focus:outline-none" }}
+                </div>
+            </form>
+            </div>
+            {% if estoque_selecionado %}
+            <p class='flex justify-center text-gray-700'>Estoque selecionado: {{ estoque_selecionado.nome }}</p>
+            {% else %}
+            <p>Nenhum estoque selecionado.</p>
+            {% endif %}
+
+            <form action="{% url 'usuarios:logout' %}" method='post'>
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div> <!--Fim da coluna 01-->
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                const select = document.querySelector('#id_estoque');
+                if (select){
+                    select.addEventListener('change', function(){
+                        document.getElementById('estoqueForm').submit();
+                    });
+                }
+            });
+        </script>
+
+        <div class="p-4 rounded-lg  bg-indigo-300 grid place-content-center col-span-2"> <!--Grid coluna 02, Linha 01 -->
+            <div class="col-md-4">
+                <a href="{% url 'estoque:configurar_estoques' %}" class="btn btn-outline-success w-100 mb-3">
+                    ➕ Configurar Estoques
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'relatorios:relatorio_estoque' %}" class="btn btn-outline-primary w-100 mb-3">
+                    📊 Relatório de Estoque
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'movimentacao:nova_movimentacao' %}" class="btn btn-outline-success w-100 mb-3">
+                    ➕ Nova Movimentação
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'admin:index' %}" class="btn btn-outline-dark w-100 mb-3">
+                    ⚙️ Administração
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'estoque:criar_categoria' %}" class="btn btn-outline-success w-100 mb-3">
+                    ➕ Nova Categoria
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'estoque:criar_produto' %}" class="btn btn-outline-success w-100 mb-3">
+                    ➕ Novo Produto
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
+                    ➕ Novo Fornecedor
+                </a>
+            </div>
+        </div> <!--Fim da grid coluna 02, linha 01-->
+
+        <div class="p-4 rounded-lg shadow-lg bg-indigo-600 grid place-content-center row-span-2 col-span-2">Reservado para a Stock IA</div>
+    </div> <!--Fim da Grid Principal-->
+        {% else %} <!--Aparece se o usuário não estiver logado-->
+
+        <div class="text-center pt-20">
+            <h1 class="mb-4 font-sans text-gray-600 text-5xl font-semibold">Bem-vindo ao Stock Manager</h1>
+            <p class="lead text-gray-600">Gerencie seus produtos, movimentações e fornecedores com facilidade.</p>
+            <a href="{% url 'usuarios:registrar'%}"><button type='button' class='mt-7 py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-orange-500 to-orange-300 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>Crie sua conta</button></a>
+        </div>
+
+        {%endif%}
 
 {% endblock %}

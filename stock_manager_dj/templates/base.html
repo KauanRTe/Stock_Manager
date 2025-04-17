@@ -9,22 +9,22 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <!-- Imagem de fundo -->
     <div class="w-screen h-screen flex items-center justify-center">
-        <div class="w-[calc(100%-30px)] h-[calc(100%-30px)] shadow-2xl rounded-lg overflow-hidden flex flex-col bg-cover bg-center" style="background-image: url('/static/images/stock_image_home1.png');">
+        <div class="w-[calc(100%-30px)] h-[calc(100%-30px)] shadow-2xl rounded-3xl overflow-hidden flex flex-col bg-cover bg-center" style="background-image: url('/static/images/stock_image_home1.png');">
             <!-- Barra de Navegação S/ Autenticação -->
             <nav class="w-full py-3">
                 <div class="container mx-auto ">
                     <div class="w-full flex  flex-col lg:flex-row">
-                        <div class=" flex justify-between lg:flex-row w-56 mx-28">
-                            <a href="home:home" class="flex items-center justify-between lg:text-2xl text-2x1 font-sans"> Stock Manager </a>
+                        <div class=" flex justify-between lg:flex-row w-80 mx-28">
+                            <a href="home:home" class="flex items-center justify-between lg:text-2xl text-2x1 font-sans"> <img src='/static/images/stock_manager_icon.svg' class="mr-3"> Stock Manager </a>
                             <button data-collapse-toggle="navbar-nav-example" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-nav-example" aria-expanded="false">
-                                <span class="sr-only">Open main menu</span>
+                                <span class="sr-only">Abrir menu</span>
                                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                                 </svg>
                             </button>
                         </div>
                         <div class="hidden w-full lg:flex lg:pl-11 " id="navbar-nav-example">
-                            <ul class="flex items-center flex-col mt-4 lg:mt-0 lg:ml-auto lg:flex-row gap-4 mr-16">
+                            <ul class="flex items-center flex-col mt-4 lg:mt-0 lg:ml-auto lg:flex-row gap-4 mr-32">
                                 <li>
                                     <p class="text-lg group justify-center relative w-[calc(100%-20px)] whitespace-nowrap">
                                         <a href="{% url 'usuarios:login' %}" class=" flex justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-orange-300 transition-all duration-500 mb-2 lg:mr-6 md:mb-0 md:mr-3">Sobre nós</a>
@@ -41,9 +41,15 @@
                                 </li>
                                 <li>
                                     <p class="text-lg group relative w-11">
-                                        <a href="{% url 'usuarios:login' %}" class="flex items-center justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-orange-300 transition-all duration-500 mb-2 lg:mr-6 md:mb-0 md:mr-3">Entrar</a>
-                                        <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-orange-300 group-hover:w-3/6"></span>
-                                        <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-orange-300 group-hover:w-3/6"></span>
+                                        {%if user.is_authenticated %}
+                                            <a href="{% url 'usuarios:login' %}" class="flex items-center justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-orange-300 transition-all duration-500 mb-2 lg:mr-6 md:mb-0 md:mr-3">{{user.username}}</a>
+                                            <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-orange-300 group-hover:w-3/6"></span>
+                                            <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-orange-300 group-hover:w-3/6"></span>
+                                        {%else%}
+                                            <a href="{% url 'usuarios:login' %}" class="flex items-center justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-orange-300 transition-all duration-500 mb-2 lg:mr-6 md:mb-0 md:mr-3">Entrar</a>
+                                            <span class="absolute -bottom-1 left-1/2 w-0 transition-all h-0.5 bg-orange-300 group-hover:w-3/6"></span>
+                                            <span class="absolute -bottom-1 right-1/2 w-0 transition-all h-0.5 bg-orange-300 group-hover:w-3/6"></span>
+                                        {%endif%}
                                     </p>
                                 </li>
                             </ul>
@@ -59,12 +65,14 @@
 
             <!-- Conteúdo Principal, onde fica os templates dos apps-->
             <main class="flex-grow">
+                {% block content %}
+                {% endblock %}
             </main>
             <!-- Rodapé da página -->
-            <footer class="text-black py-4 bg-white bg-opacity-80 shadow-inner">
+            <footer class="text-gray-500 py-4 bg-opacity-80 shadow-inner">
                 <div class="max-w-7xl mx-auto text-center">
-                    <hr class="border-gray-600">
-                    <p class="text-sm mt-3">&copy; {{ now|date:"Y" }} Stock Manager • Feito com Django 💻</p>
+                    <hr class="border-gray-300">
+                    <p class="text-sm mt-3">&copy; {{ now|date:"Y" }} Stock Manager • Feito por Kauan</p>
                 </div>
             </footer>
         </div>
