@@ -24,7 +24,7 @@ class EstoqueForm(forms.ModelForm):
         fields = ['nome']
 
 class SelecionarEstoqueForm(forms.Form):
-    estoque = forms.ModelChoiceField(queryset=Estoque.objects.none(), label="Selecione seu estoque")
+    estoque = forms.ModelChoiceField(queryset=Estoque.objects.none(), label="Selecione o estoque antes de gerenciá-lo", empty_label=" ")
 
     def __init__(self, *args, **kwargs):
         usuario = kwargs.pop('usuario', None)

@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from . import forms
 from django.contrib import messages
 
-# Create your views here.
 
 @login_required
 def produtos_por_categoria(request, slug):
@@ -67,14 +66,14 @@ def criar_estoque(request):
     return render(request, 'estoque/criar_estoque.html', {'form': form})
 
 
-def configurar_estoques(request):
-    return render(request, 'estoque/configurar_estoques.html')
+def gerenciar_estoque(request):
+    return render(request, 'estoque/gerenciar_estoque.html')
 
 def renomear_estoque(request, estoque_id=None):
     estoque_id = request.session.get('estoque_id')
     if not estoque_id:
         messages.error(request, 'Nenhum estoque selecionado.')
-        return redirect('estoque:configurar_estoques')
+        return redirect('home:home')
     
     estoque = get_object_or_404(Estoque, id=estoque_id, usuario=request.user)
 
