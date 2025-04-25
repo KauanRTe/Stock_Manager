@@ -1,5 +1,37 @@
 <h2>Configurações de Estoques</h2>
 
-<a href="{% url 'estoque:criar_estoque' %}"><button>Criar Novo Estoque</button></a>
-<a href="{% url 'estoque:renomear_estoque' %}"><button>Renomear Estoque</button></a>
-<a href="{% url 'estoque:deletar_estoque' %}"><button>Deletar Estoque</button></a>
+<div class="col-md-4">
+    <a href="{% url 'estoque:gerenciar_estoque' %}" class="btn btn-outline-success w-100 mb-3">
+        ➕ Configurar Estoques
+    </a>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'relatorios:relatorio_estoque' %}" class="btn btn-outline-primary w-100 mb-3">
+        📊 Relatório de Estoque
+    </a>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'movimentacao:nova_movimentacao' %}" class="btn btn-outline-success w-100 mb-3">
+        ➕ Nova Movimentação
+    </a>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'admin:index' %}" class="btn btn-outline-dark w-100 mb-3">
+        ⚙️ Administração
+    </a>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'estoque:criar_categoria' %}" class="btn btn-outline-success w-100 mb-3">
+        ➕ Nova Categoria
+    </a>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'estoque:criar_produto' %}" class="btn btn-outline-success w-100 mb-3">
+        ➕ Novo Produto
+    </a>
+</div>
+<div class="col-md-4">
+    <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
+        ➕ Novo Fornecedor
+    </a>
+</div>

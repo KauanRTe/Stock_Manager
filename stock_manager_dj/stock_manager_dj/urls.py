@@ -26,5 +26,6 @@ urlpatterns = [
     path('movimentacao/', include('movimentacao.urls', namespace='movimentacao')),
     path('relatorios/', include('relatorios.urls', namespace='relatorios')),
     path('fornecedores/', include('fornecedores.urls', namespace='fornecedores')),
-    path('usuarios/', include('usuarios.urls', namespace='usuarios'))
+    path('usuarios/', include('usuarios.urls', namespace='usuarios')),
+    path('api/', include('chatbot.urls', namespace='chatbot')),
 ]

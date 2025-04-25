@@ -7,7 +7,7 @@
 
 <!--Aparece somente se o usuário estiver logado-->
 {% if user.is_authenticated %}
-    <div class="h-[calc(100%-2vh)] w-[calc(100%-2vw)] grid grid-rows-3 grid-flow-col gap-4 text-white text-sm font-bold"> <!--DIV PRINCIPAL-->
+    <div class="h-[calc(100%-2vh)] w-[calc(100%-2vw)] grid grid-rows-2 grid-flow-col gap-4 text-white text-sm font-bold"> <!--DIV PRINCIPAL-->
         <div class="ml-10 block p-4 rounded-lg shadow-lg flex-col row-span-3 justify-items-center text-center"> <!-- Grid coluna 01-->
             <p class='w-auto h-12 flex justify-center text-3xl flex-row font-semibold text-gray-700'>Bem-vindo de volta, {{ user.username }}!</p>
             <div class='h-auto pb-2 w-auto flex justify-center'>
@@ -62,45 +62,28 @@
             });
         </script>
 
-        <div class="p-4 rounded-lg  bg-indigo-300 grid place-content-center col-span-2"> <!--Grid coluna 02, Linha 01 -->
-            <div class="col-md-4">
-                <a href="{% url 'estoque:gerenciar_estoque' %}" class="btn btn-outline-success w-100 mb-3">
-                    ➕ Configurar Estoques
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'relatorios:relatorio_estoque' %}" class="btn btn-outline-primary w-100 mb-3">
-                    📊 Relatório de Estoque
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'movimentacao:nova_movimentacao' %}" class="btn btn-outline-success w-100 mb-3">
-                    ➕ Nova Movimentação
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'admin:index' %}" class="btn btn-outline-dark w-100 mb-3">
-                    ⚙️ Administração
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'estoque:criar_categoria' %}" class="btn btn-outline-success w-100 mb-3">
-                    ➕ Nova Categoria
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'estoque:criar_produto' %}" class="btn btn-outline-success w-100 mb-3">
-                    ➕ Novo Produto
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
-                    ➕ Novo Fornecedor
-                </a>
-            </div>
-        </div> <!--Fim da grid coluna 02, linha 01-->
+        <div class="block p-4 rounded-lg shadow-lg flex-col row-span-3 justify-items-center text-center"> <!--Grid coluna 02, Linha 01 -->
+            <!--Chatbot Estrutura-->
+                <div id="container-chat" style="box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);" class="right-0 mr-4 bg-white opacity-90 rounded-lg w-[440px] h-[500px]">
 
-        <div class="p-4 rounded-lg shadow-lg bg-indigo-600 grid place-content-center row-span-2 col-span-2">Reservado para a Stock IA</div>
+                <!-- Header chatbot -->
+                <div class="flex flex-col space-y-1.5 pb-6">
+                    <h2 class="font-semibold text-lg tracking-tight text-gray-500">Chat</h2>
+                    <p class="text-sm text-[#6b7280] leading-3">Converse com a Stock IA</p>
+                </div>
+
+                <!-- Container Chat -->
+                <div id="chat-messages" class="p-6 h-[474px]" style="min-width: 100%; display: table;">
+
+                <!-- Input box  -->
+                <div class="flex items-center pt-0">
+                <form class="flex items-center justify-center w-full space-x-2">
+                    <input id="chat-input" class="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2" placeholder="Type your message" value="">
+                    <button type="submit" id="send-btn" class="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2"> Send</button>
+                </form>
+                </div>
+
+        </div> <!--Fim da grid coluna 02, linha 01-->
     </div> <!--Fim da Grid Principal-->
         {% else %} <!--Aparece se o usuário não estiver logado-->
 
@@ -112,4 +95,7 @@
 
         {%endif%}
 
+        {% load static %}
+        <script src="{% static 'js/chat.js' %}"></script>
 {% endblock %}
+

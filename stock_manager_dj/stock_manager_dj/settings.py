@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'relatorios',
     'home',
     'widget_tweaks',
+    'chatbot',
 ]
 
 MIDDLEWARE = [
