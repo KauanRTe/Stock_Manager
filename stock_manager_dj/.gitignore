@@ -10,6 +10,8 @@
 __pycache__/
 db.sqlite3
 
+#modelos IA
+/modelos/
 
 # VSCode
 .vscode/
@@ -20,4 +22,5 @@ db.sqlite3
 # Windows
 Thumbs.db
 
+#env
 .env
