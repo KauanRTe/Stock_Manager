@@ -11,7 +11,7 @@ __pycache__/
 db.sqlite3
 
 #modelos IA
-/modelos/
+stock_manager_dj/modelos/
 
 # VSCode
 .vscode/
