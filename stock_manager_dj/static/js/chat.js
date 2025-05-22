@@ -9,24 +9,21 @@ document.addEventListener("DOMContentLoaded", function() {
         const message = input.value.trim();
         if (!message) return;
 
-        // Mostra a mensagem do usuário
-        chatBox.innerHTML += `
-            <div class="flex justify-end gap-3 my-4 text-sm text-gray-700">
-                <p class="w-auto px-4 py-2 bg-gray-200 rounded-md leading-relaxed">${message}</p>
-            </div>
-        `;
+        // Mostra a mensagem do usuário no chat
+        const userMsgDiv = document.createElement("div");
+        userMsgDiv.className = "flex justify-end gap-3 my-4 text-sm text-gray-700";
+        userMsgDiv.innerHTML = `<p class="bg-gray-200 px-3 py-2 rounded-md w-fit max-w-full"> ${message}</p>`
+        chatBox.appendChild(userMsgDiv)
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Mostra "Aguardando resposta..." enquanto a IA processa a resposta.
+        const loadingMsg = document.createElement("div");
+        loadingMsg.className = "flex gap-3 my-4 text-sm text-gray-700";
+        loadingMsg.id = "loading-msg";
+        loadingMsg.innerHTML = `<p class="leading-relaxed text-gray-500 break-words whitespace-normal">Aguardando resposta...</p>`;
+        chatBox.appendChild(loadingMsg)
 
         input.value = "";
-
-        // Mostra "Aguardando resposta..." antes da resposta real
-        const loadingMsgId = `loading-${Date.now()}`;
-        chatBox.innerHTML += `
-            <div id="${loadingMsgId}" class="flex gap-3 my-4 text-sm text-gray-700">
-                <p class="leading-relaxed italic text-gray-500">Aguardando resposta...</p>
-            </div>
-        `;
-
-        chatBox.scrollTop = chatBox.scrollHeight;
 
         try {
             const response = await fetch("/chatbot-resposta/", {
@@ -41,13 +38,15 @@ document.addEventListener("DOMContentLoaded", function() {
             const data = await response.json();
 
             // Substitui a mensagem de "aguardando..." pela resposta real
-            const respostaFinal = data.resposta;
-            const loadingMsg = document.getElementById(loadingMsgId);
+            loadingMsg.remove();
 
-            if (respostaFinal) {
-                loadingMsg.innerHTML = `<p class="leading-relaxed">${respostaFinal}</p>`;
-            } else {
-                loadingMsg.innerHTML = `<p class="leading-relaxed text-red-600">Desculpe, não conseguimos entender a resposta da IA.</p>`;
+            if(data.resposta){
+                const iaMsgDiv = document.createElement("div");
+                iaMsgDiv.className = "flex gap-3 my-4 text-sm text-gray-700";
+                iaMsgDiv.innerHTML = `<p class="bg-blue-100 px-3 py-2 rounded-md w-fit max-w-full text-left">${data.resposta}</p>`;
+                chatBox.appendChild(iaMsgDiv);
+            }else{
+                showError("Desculpe, não conseguimos entender a resposta da IA.")
             }
 
         } catch (error) {

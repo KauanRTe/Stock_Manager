@@ -1,4 +1,9 @@
-<h2>Configurações de Estoques</h2>
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<!--<h2>Configurações de Estoques</h2>
 
 <div class="col-md-4">
     <a href="{% url 'estoque:gerenciar_estoque' %}" class="btn btn-outline-success w-100 mb-3">
@@ -34,4 +39,29 @@
     <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
         ➕ Novo Fornecedor
     </a>
-</div>
+</div>!-->
+{%if user.is_authenticated%}
+   <div class="mt-20 grid grid-cols-3 grid-rows-2 gap-4 w-auto h-60 p-4 place-items-center">
+        <div>
+            <a href="{% url 'movimentacao:nova_movimentacao' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Nova movimentação </a>
+        </div>
+        <div>
+            <a href="{% url 'estoque:criar_produto' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar produto </a>
+        </div>
+        <div>
+            <a href="{% url 'estoque:criar_categoria' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar categoria </a>
+        </div>
+        <div>
+            <a href="{% url 'fornecedores:criar_fornecedor' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar fornecedor </a>
+        </div>
+        <div>
+            <a href="{% url 'relatorios:relatorio_estoque' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Relatório </a>
+        </div>
+    </div>
+{%else%}
+    Faça login para gerenciar seu estoque.
+{%endif%}
+
+
+
+{%endblock%}

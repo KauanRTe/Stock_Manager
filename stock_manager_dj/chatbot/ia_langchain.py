@@ -1,25 +1,17 @@
-from langchain_community.llms import LlamaCpp
-from langchain.prompts import PromptTemplate
-import os
+from transformers import pipeline
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Sobe só um nível!
-caminho_modelo = os.path.join(BASE_DIR, "..", "modelos", "mistral-7b-instruct-v0.1.Q4_K_M.gguf")
-caminho_modelo = os.path.abspath(caminho_modelo)  # Torna absoluto
-
- 
-llm = LlamaCpp(
-    model_path = caminho_modelo,
-    temperature = 0.6,
-    max_tokens = 512,
-    n_ctx = 2048,
-    verbose = False
-)
+pipe = pipeline("text-generation", model="ahxt/LiteLlama-460M-1T")
 
 
-template = """Você é um assistente inteligente que ajuda a gerenciar um sistema de estoque. Responda de forma simples e direta. Comando: {pergunta} """
+def gerar_resposta(texto_usuario):
+    # Tokeniza entrada e gera saída
+    prompt = f""" Você é um assistente que ajudará os usuários a gerenciar um estoque. Responda de forma simples e direta.
+    Pergunta: {texto_usuario}
+    """
+    
+    resposta = pipe(prompt, max_length=130, min_length=30)
 
-prompt = PromptTemplate(template = template, input_variables=["pergunta"])
+    texto_gerado = resposta[0]["generated_text"]
 
-def processar_comando_usuario(pergunta):
-    resposta = llm(prompt.format(pergunta=pergunta))
-    return resposta
+    resposta_final = texto_gerado.replace(prompt, "").strip()
+    return resposta_final
