@@ -12,6 +12,7 @@ db.sqlite3
 
 #modelos IA
 *.gguf
+stock_manager_dj/modelos/Meta-Llama-3-8B-Instruct-Q4_K_M.gguf
 
 # VSCode
 .vscode/
