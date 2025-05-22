@@ -2,44 +2,6 @@
 {% load widget_tweaks %}
 
 {% block content %}
-
-<!--<h2>Configurações de Estoques</h2>
-
-<div class="col-md-4">
-    <a href="{% url 'estoque:gerenciar_estoque' %}" class="btn btn-outline-success w-100 mb-3">
-        ➕ Configurar Estoques
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="{% url 'relatorios:relatorio_estoque' %}" class="btn btn-outline-primary w-100 mb-3">
-        📊 Relatório de Estoque
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="{% url 'movimentacao:nova_movimentacao' %}" class="btn btn-outline-success w-100 mb-3">
-        ➕ Nova Movimentação
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="{% url 'admin:index' %}" class="btn btn-outline-dark w-100 mb-3">
-        ⚙️ Administração
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="{% url 'estoque:criar_categoria' %}" class="btn btn-outline-success w-100 mb-3">
-        ➕ Nova Categoria
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="{% url 'estoque:criar_produto' %}" class="btn btn-outline-success w-100 mb-3">
-        ➕ Novo Produto
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="{% url 'fornecedores:criar_fornecedor' %}" class="btn btn-outline-success w-100 mb-3">
-        ➕ Novo Fornecedor
-    </a>
-</div>!-->
 {%if user.is_authenticated%}
    <div class="mt-20 grid grid-cols-3 grid-rows-2 gap-4 w-auto h-60 p-4 place-items-center">
         <div>
