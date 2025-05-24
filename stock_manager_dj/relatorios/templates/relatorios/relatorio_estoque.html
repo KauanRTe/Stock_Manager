@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Estoque</title>
-</head>
-<body>
-    <h1>📊 Relatório de Estoque</h1>
+{% extends 'gerenciar_estoque_base.html' %}
+
+{% block content %}
+<h1>📊 Relatório de Estoque</h1>
 <table border="1">
     <tr>
         <th>Produto</th>
@@ -19,5 +14,4 @@
     </tr>
     {% endfor %}
 </table>
-</body>
-</html>
+{% endblock %}

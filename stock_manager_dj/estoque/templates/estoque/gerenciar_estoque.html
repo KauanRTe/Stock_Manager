@@ -3,21 +3,25 @@
 
 {% block content %}
 {%if user.is_authenticated%}
-   <div class="mt-20 grid grid-cols-3 grid-rows-2 gap-4 w-auto h-60 p-4 place-items-center">
-        <div>
-            <a href="{% url 'movimentacao:nova_movimentacao' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Nova movimentação </a>
-        </div>
-        <div>
-            <a href="{% url 'estoque:criar_produto' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar produto </a>
-        </div>
-        <div>
-            <a href="{% url 'estoque:criar_categoria' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar categoria </a>
-        </div>
-        <div>
-            <a href="{% url 'fornecedores:criar_fornecedor' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar fornecedor </a>
-        </div>
-        <div>
-            <a href="{% url 'relatorios:relatorio_estoque' %}" class="flex justify-center items-center w-80 h-20 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Relatório </a>
+    <div class="flex justify-center items-center h-full">
+        <div class="mb-14 h-[calc(80%)] w-[calc(30%)] grid grid-cols-1 grid-rows-1">
+            <div class= "flex-col place-items-center pt-10 items-center shadow-lg rounded-md">
+                <div>
+                    <a href="{% url 'movimentacao:nova_movimentacao' %}" class="flex justify-center items-center w-80 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Nova movimentação </a>
+                </div>
+                <div>
+                    <a href="{% url 'estoque:criar_produto' %}" class="flex justify-center items-center mt-5 w-80 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar produto </a>
+                </div>
+                <div>
+                    <a href="{% url 'estoque:criar_categoria' %}" class="flex justify-center items-center mt-5 w-80 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar categoria </a>
+                </div>
+                <div>
+                    <a href="{% url 'fornecedores:criar_fornecedor' %}" class="flex justify-center items-center mt-5 w-80 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Cadastrar fornecedor </a>
+                </div>
+                <div>
+                    <a href="{% url 'relatorios:relatorio_estoque' %}" class="flex justify-center items-center mt-5 w-80 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700"> Relatório </a>
+                </div>
+            </div>
         </div>
     </div>
 {%else%}

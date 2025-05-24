@@ -1,6 +1,10 @@
+{% extends "gerenciar_estoque_base.html" %}
+
+{% block content %}
 <h2>Novo Fornecedor</h2>
 <form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Salvar</button>
 </form>
+{% endblock %}

@@ -34,10 +34,17 @@
             </form>
             <div class="mt-10 align-center h-auto w-3/4"> <!-- Funcionalidades/Botões na Home Page-->
                 <div class="grid grid-cols-2 gap-4 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-indigo rounded-lg">
+                    {% if estoque_selecionado %}
                     <a href="{% url 'estoque:gerenciar_estoque' %}" class="p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700">Gerenciar Estoque</a>
                     <a href="{% url 'estoque:renomear_estoque' %}" class="p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700">Renomear Estoque</a>
-                    <a href="{% url 'estoque:criar_estoque' %}" class="p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700">Criar Estoque</a>
                     <a href="{% url 'estoque:deletar_estoque' %}" class="p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700">Deletar Estoque</a>
+                    <a href="{% url 'estoque:criar_estoque' %}" class="p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700">Criar Estoque</a>
+                    {% else %}
+                    <a class="p-4 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-gray-400 bg-gray-600 opacity-50 text-white cursor-not-allowed ">Gerenciar Estoque</a>
+                    <a class="p-4 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-gray-400 bg-gray-600 opacity-50 text-white cursor-not-allowed ">Renomear Estoque</a>
+                    <a class="p-4 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-gray-400 bg-gray-600 opacity-50 text-white cursor-not-allowed ">Deletar Estoque</a>
+                    <a class="p-4 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-gray-400 bg-gray-600 opacity-50 text-white cursor-not-allowed ">Criar Estoque</a>
+                    {% endif %}
                     </div>
             </div>
             <!-- Se houver alguma notificação de erro para o usuário -->

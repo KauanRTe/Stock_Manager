@@ -1,34 +1,27 @@
-{% extends "base.html" %}
+{% extends "gerenciar_estoque_base.html" %}
 
 {% block content %}
-<h2>Registrar Movimentação</h2>
-
+<p class="font-medium text-3xl text-gray-700">Registrar Movimentação</p>
 <form method="post">
     {% csrf_token %}
-
-    <div>
-        <label for="id_tipo">Tipo de Movimentação:</label>
+    <div class="mr-24 mt-10 mb-4">
+        <label for="id_tipo" class="font-medium text-2xl text-gray-700">Tipo de Movimentação:</label>
         {{ form.tipo }}
     </div>
-
-    <div>
-        <label for="id_produto">Produto:</label>
+    <div class="mb-4">
+        <label for="id_produto" class="font-medium text-2xl text-gray-700">Produto:</label>
         {{ form.produto }}
     </div>
-
-    <div>
-        <label for="id_quantidade">Quantidade:</label>
+    <div class="mb-4">
+        <label for="id_quantidade" class="font-medium text-2xl text-gray-700">Quantidade:</label>
         {{ form.quantidade }}
     </div>
-
-    <div id="fornecedor_field">
-        <label for="id_fornecedor">Fornecedor:</label>
+    <div id="fornecedor_field" class="mb-4">
+        <label for="id_fornecedor" class="font-medium text-2xl text-gray-700">Fornecedor:</label>
         {{ form.fornecedor }}
     </div>
-
     <button type="submit">Salvar</button>
 </form>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const tipoField = document.getElementById("id_tipo");
