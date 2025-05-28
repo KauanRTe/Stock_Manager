@@ -4,39 +4,68 @@
 <p class="font-medium text-3xl text-gray-700">Registrar Movimentação</p>
 <form method="post">
     {% csrf_token %}
-    <div class="mr-24 mt-10 mb-4">
-        <label for="id_tipo" class="font-medium text-2xl text-gray-700">Tipo de Movimentação:</label>
+    {% load widget_tweaks %}
+    <div class="flex gap-4 mr-24 mt-10 w-full">
+        <label for="id_tipo" class="font-medium text-2xl text-gray-700  ">Tipo:</label>
         {{ form.tipo }}
     </div>
-    <div class="mb-4">
+    <div class="flex gap-4">
         <label for="id_produto" class="font-medium text-2xl text-gray-700">Produto:</label>
         {{ form.produto }}
     </div>
-    <div class="mb-4">
+    <div class="flex gap-4">
         <label for="id_quantidade" class="font-medium text-2xl text-gray-700">Quantidade:</label>
         {{ form.quantidade }}
     </div>
-    <div id="fornecedor_field" class="mb-4">
+    <div id="fornecedor_field" class="gap-4 w-full">
         <label for="id_fornecedor" class="font-medium text-2xl text-gray-700">Fornecedor:</label>
         {{ form.fornecedor }}
     </div>
-    <button type="submit">Salvar</button>
-</form>
+    <div class="flex justify-center w-full mt-4">
+    <button type="submit" class="flex justify-center items-center w-40 p-4 rounded-lg shadow-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 bg-orange-300 text-gray-700">Salvar</button>
+    </div>
+  </form>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const tipoField = document.getElementById("id_tipo");
+        const produtoField = document.getElementById("id_produto")
+        const fornecedorField = document.getElementById("id_fornecedor")
         const fornecedorRow = document.getElementById("fornecedor_field");
     
         function toggleFornecedor() {
           if (tipoField.value === "entrada") {
-            fornecedorRow.style.display = "block";
+            fornecedorRow.classList.remove("hidden");
+            fornecedorRow.classList.add("flex")
           } else {
-            fornecedorRow.style.display = "none";
+            fornecedorRow.classList.remove("flex");
+            fornecedorRow.classList.add("hidden")
           }
         }
-    
-        tipoField.addEventListener("change", toggleFornecedor);
-        toggleFornecedor();  // aplica no carregamento inicial
+
+        function removeEmptyOption(selectElement) {
+          if (!selectElement.dataset.emptyRemoved){
+            const firstOption = selectElement.options[0];
+            if (firstOption && firstOption.value === "") {
+              selectElement.remove(0);
+              selectElement.dataset.emptyRemoved = "true";
+            }
+          }
+        }
+
+        tipoField.addEventListener("change", function () {
+          toggleFornecedor();
+          removeEmptyOption(tipoField);
+        });
+
+        produtoField.addEventListener("change", function () {
+          removeEmptyOption(produtoField);
+        });
+
+        fornecedorField.addEventListener("change", function () {
+          removeEmptyOption(fornecedorField);
+        });
+
+        toggleFornecedor();
       });
 </script>
 

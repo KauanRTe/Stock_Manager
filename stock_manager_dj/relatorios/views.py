@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.db.models import Sum, F, Case, When
-from estoque.models import Produto
+from django.db.models import Sum, F, Case, When, Max
+from estoque.models  import Produto
+from movimentacao.models import Movimentacao
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -23,4 +24,11 @@ def relatorio_estoque(request):
             )
         )
     )
-    return render(request, 'relatorios/relatorio_estoque.html', {"produtos": produtos})
+
+    ultimas_datas = (
+        Movimentacao.objects.values("produto").annotate(ultima_data=Max('data'))
+    )
+
+    datas_dict = {item['produto']: item['ultima_data'] for item in ultimas_datas}
+
+    return render(request, 'relatorios/relatorio_estoque.html', {"produtos": produtos, "datas_dict": datas_dict})
