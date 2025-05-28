@@ -8,7 +8,7 @@
 <!--Aparece somente se o usuário estiver logado-->
 {% if user.is_authenticated %}
     <div class="h-[calc(100%-2vh)] w-[calc(100%-2vw)] grid grid-rows-2 grid-flow-col gap-4 text-white text-sm font-bold"> <!--DIV PRINCIPAL-->
-        <div class="ml-10 block p-4 rounded-lg shadow-lg flex-col row-span-3 justify-items-center text-center"> <!-- Grid coluna 01-->
+        <div class="ml-10 block p-4 rounded-lg shadow-2xl flex-col row-span-3 justify-items-center text-center"> <!-- Grid coluna 01-->
             <p class='w-auto h-12 flex justify-center text-3xl flex-row font-semibold text-gray-700'>Bem-vindo de volta, {{ user.username }}!</p>
             <div class='h-auto pb-2 w-auto flex justify-center'>
             <form method="post" id="estoqueForm" class="justify-center w-auto">
@@ -69,7 +69,7 @@
             });
         </script>
 
-        <div class="block p-4 rounded-lg shadow-lg flex-col row-span-3 justify-items-center text-center"> <!--Grid coluna 02, Linha 01 -->
+        <div class="rounded-lg shadow-2xl flex-col row-span-3 text-center place-content-center place-items-center"> <!--Grid coluna 02, Linha 01 -->
             <!--Chatbot Estrutura-->
             <div id="container-chat" style="box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);" class="w-[440px] h-[500px] flex flex-col bg-white opacity-90 rounded-lg shadow-md overflow-hidden">
 

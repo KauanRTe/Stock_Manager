@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum, F, Case, When, Max
+from django.core.paginator import Paginator
 from estoque.models  import Produto
 from movimentacao.models import Movimentacao
 from django.contrib.auth.decorators import login_required
@@ -25,10 +26,14 @@ def relatorio_estoque(request):
         )
     )
 
+    paginator = Paginator(produtos, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     ultimas_datas = (
         Movimentacao.objects.values("produto").annotate(ultima_data=Max('data'))
     )
 
     datas_dict = {item['produto']: item['ultima_data'] for item in ultimas_datas}
 
-    return render(request, 'relatorios/relatorio_estoque.html', {"produtos": produtos, "datas_dict": datas_dict})
+    return render(request, 'relatorios/relatorio_estoque.html', {"produtos": produtos, "datas_dict": datas_dict, "page_obj": page_obj})

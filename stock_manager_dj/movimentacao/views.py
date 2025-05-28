@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import MovimentacaoForm
 from django.contrib.auth.decorators import login_required
-from .models import Estoque
+from .models import Estoque, Produto, Movimentacao
 from django.contrib import messages
 
 @login_required
@@ -23,3 +23,10 @@ def nova_movimentacao(request):
         form = MovimentacaoForm()
 
     return render(request, 'movimentacao/movimentacao_form.html', {'form': form})
+
+@login_required
+def movimentacoes_produto(request, produto_id):
+    produto = get_object_or_404(Produto, id=produto_id)
+    movimentacoes = Movimentacao.objects.filter(produto=produto).order_by('-data')
+    return render(request, 'movimentacao/movimentacoes_produto.html', {'produto': produto, 'movimentacoes': movimentacoes})
+

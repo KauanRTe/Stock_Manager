@@ -26,6 +26,7 @@ class Produto(models.Model):
     data_cadastro = models.DateTimeField(auto_now_add=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True) 
     estoque = models.ForeignKey('Estoque', on_delete=models.CASCADE, related_name='produtos' )
+    fornecedor = models.ForeignKey("fornecedores.Fornecedor", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"{self.nome} ({self.categoria})"
