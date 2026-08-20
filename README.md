@@ -13,4 +13,4 @@ Este é um sistema de **gerenciamento de estoque** desenvolvido em Django.
 ✔️ Cadastro de produtos  
 ✔️ Controle de entradas e saídas  
 ✔️ Relatórios de estoque  
-✔️ Integração com Machine Learning
+✔️ Integração com Machine Learning (futuro 🚀)  

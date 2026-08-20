@@ -26,3 +26,5 @@ Thumbs.db
 #env
 .env
 venv/
+
+stock_manager_dj/staticfiles/
