@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: stock-manager
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn stock_manager_dj.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
